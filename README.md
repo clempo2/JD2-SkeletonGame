@@ -6,7 +6,7 @@ The goal is to achieve high software quality while minimizing the amount of code
 
 ## Status
 
-The port is nearly complete. The game is now playable with some minor issues.
+The port is complete. The game works as intended. Please submit a [GitHub issue](https://github.com/clempo2/JD2-SkeletonGame/issues) if you find a problem.
 
 ## Installation
 
@@ -33,6 +33,10 @@ JD2-SkeletonGame should also run on Linux but this has not been tested.
 ## Documentation
 
 The rule sheet is located in .\doc\JD2-pyprocgame-rules.txt
+
+## Known Issues
+
+The DMD display malfunctions and the game can become unstable when the computer screen saver activates. To avoid this problem, the screen saver must be disabled when running JD2-SkeletonGame.
 
 ## Authors
 
