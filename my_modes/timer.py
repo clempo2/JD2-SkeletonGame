@@ -7,6 +7,7 @@ class Timer(AdvancedMode):
     def __init__(self, game, priority):
         super(Timer, self).__init__(game, priority)
         self.timer = 0
+        self.paused = False
 
     def mode_stopped(self):
         self.stop_timer()
@@ -31,9 +32,11 @@ class Timer(AdvancedMode):
         self.timer += time
 
     def pause(self):
+        self.paused = True
         self.cancel_delayed('decrement timer')
 
     def resume(self):
+        self.paused = False
         if self.timer > 0:
             self.delay(name='decrement timer', event_type=None, delay=self.delay_time, handler=self.decrement_timer)
 

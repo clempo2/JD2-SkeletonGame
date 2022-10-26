@@ -1,6 +1,7 @@
 from random import randint
 from time import time
 from procgame.game import AdvancedMode
+from procgame.sound import CH_SFX
 from timer import TimedMode
 
 class Chain(AdvancedMode):
@@ -86,6 +87,9 @@ class Chain(AdvancedMode):
     def resume(self):
         if self.mode:
             self.mode.resume()
+            self.mode.play_music()
+        else:
+            self.game.base_play.play_background_music()
 
     # start a new chain mode after the display becomes available
     def start_chain_mode(self):
@@ -435,18 +439,31 @@ class Impersonator(ChainFeature):
 
     def mode_stopped(self):
         super(Impersonator, self).mode_stopped()
+        self.stop_sounds()
         self.stop_using_drops()
-        for key in ['bad impersonator song', 'bad impersonator boo', 'bad impersonator shutup']:
-            self.game.sound.stop(key)
+
+    def pause(self):
+        super(Impersonator, self).pause()
+        self.stop_sounds()
+
+    def resume(self):
+        super(Impersonator, self).resume()
+        self.cancel_delayed('song_restart')
+        self.song_restart()
 
     def play_music(self):
         # this mode talks all the time, we don't want any music
         pass
 
     def play_sound(self, key):
-        # this mode talks all the time, keep quiet if stacked with multiball
-        if not self.game.getPlayerState('multiball_active'):
-            self.game.sound.play(key)
+        # this mode talks all the time, keep quiet if stacked with missile award or multiball
+        if not self.paused and not self.game.getPlayerState('multiball_active'):
+            # play voices on top of each other as sound effects
+            self.game.sound.play(key, channel=CH_SFX)
+
+    def stop_sounds(self):
+        for key in ['bad impersonator song', 'bad impersonator boo', 'bad impersonator shutup']:
+            self.game.sound.stop(key)
 
     def end_sound(self):
         self.sound_active = False

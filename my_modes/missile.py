@@ -85,7 +85,6 @@ class MissileAwardMode(Timer):
             self.start_selection()
 
     def end_missile_award(self):
-        self.game.base_play.play_background_music()
         self.game.base_play.regular_play.chain.resume()
 
     def video_mode_complete(self, success):
