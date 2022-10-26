@@ -8,16 +8,23 @@ class JDBallSearch(BallSearch):
     def __init__(self, game, priority, countdown_time, coils=[], reset_switches=[], stop_switches=[], enable_switch_names=[], special_handler_modes=[]):
         self.initial_countdown_time = countdown_time
         self.round = 0
+        self.deadworld_search = False
         super(JDBallSearch, self).__init__(game, priority, countdown_time, coils, reset_switches, stop_switches, enable_switch_names, special_handler_modes)
 
     def reset(self, sw):
         self.round = 0
         self.countdown_time = self.initial_countdown_time
+        self.__stop_deadworld_search()
         super(JDBallSearch, self).reset(sw)
 
     def stop(self,sw):
-        self.cancel_delayed(name='ball_search_countdown');
-        self.cancel_delayed('ball_search_coil1')
+        self.__stop_deadworld_search()
+        super(JDBallSearch, self).stop(sw)
+
+    def __stop_deadworld_search(self):
+        if self.deadworld_search:
+            self.deadworld_search = False
+            self.game.deadworld.stop_ball_search()
 
     def perform_search(self, completion_wait_time, completion_handler=None, silent=None):
         self.round += 1
@@ -33,6 +40,7 @@ class JDBallSearch(BallSearch):
         elif self.round == 3:
             # searching an empty planet should not impact the state of the game
             if self.game.deadworld.num_balls_locked == 0:
+                self.deadworld_search = True
                 self.game.deadworld.perform_ball_search()
         elif self.round == 10 and self.game.base_play.is_started():
             if self.game.deadworld.num_balls_locked > 0:

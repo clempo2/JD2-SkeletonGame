@@ -37,9 +37,9 @@ Coil Strength:
     increments: 1
     default: 30
   popperL:
-    options: [15,60]
+    options: [10,60]
     increments: 1
-    default: 25
+    default: 15
   popperR:
     options: [15,60]
     increments: 1
