@@ -16,7 +16,7 @@ The port is complete. The game works as intended. Please submit a [GitHub issue]
   For example: cd c:\P-ROC & git clone -b dmd https://github.com/clempo2/SkeletonGameDMD.git  
 - Copy [JD2-SkeletonGame](https://github.com/clempo2/JD2-SkeletonGame) to C:\P-ROC\JD2-SkeletonGame  
   For example: cd c:\P-ROC & git clone https://github.com/clempo2/JD2-SkeletonGame.git
-- Install the [JD2-pyprocgame media kit](https://github.com/clempo2/JD2-pyprocgame-media). Follow and adapt the instructions in the media kit repository to extract the assets over JD2-SkeletonGame. For example, after the installation you should have the directory C:\P-ROC\JD2-SkeletonGame\assets\sound  
+- Install the [JD2-pyprocgame media kit](https://github.com/clempo2/JD2-pyprocgame-media). Follow the instructions in the media kit repository to extract the assets over JD2-SkeletonGame. For example, after the installation you should have the directory C:\P-ROC\JD2-SkeletonGame\assets\sound  
 - Edit config.yaml to comment out this line when using a real P-ROC
     ```
     #pinproc_class: procgame.fakepinproc.FakePinPROC # comment out this line when using a real P-ROC.

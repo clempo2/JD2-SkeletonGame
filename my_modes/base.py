@@ -76,13 +76,14 @@ class Base(AdvancedMode):
         return self.layer.duration()
 
     def sw_startButton_active(self, sw):
-        self.start_button_active()
+        self.start_button_active(sw)
 
     def sw_superGame_active(self, sw):
-        self.start_button_active()
+        self.start_button_active(sw)
 
-    def start_button_active(self):
+    def start_button_active(self, sw):
         if self.game_over:
             # skip game over display and initial entry (if applicable)
-            # go straight to attract mode
+            # go to attract mode which will start the game immediately
+            self.game.attract_mode.quick_start_button = sw
             self.game.safe_reset()

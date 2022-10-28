@@ -11,8 +11,7 @@ class JDSwitchMonitor(SwitchMonitor):
         super(JDSwitchMonitor, self).__init__(game)
 
     def sw_startButton_active(self, sw):
-        self.superGame_button_pressed = False
-        super(JDSwitchMonitor, self).sw_startButton_active(sw)
+        self.start_button_active(sw)
 
     def sw_startButton_active_for_2s(self, sw):
         return self.check_reset(2)
@@ -22,8 +21,7 @@ class JDSwitchMonitor(SwitchMonitor):
         return self.check_reset(1)
 
     def sw_superGame_active(self, sw):
-        self.superGame_button_pressed = True
-        super(JDSwitchMonitor, self).sw_startButton_active(sw)
+        self.start_button_active(sw)
 
     def sw_superGame_active_for_2s(self, sw):
         return self.check_reset(2)
@@ -31,6 +29,10 @@ class JDSwitchMonitor(SwitchMonitor):
     def sw_superGame_active_for_5s(self, sw):
         # you must press longer to restart on ball 1
         return self.check_reset(1)
+
+    def start_button_active(self, sw):
+        self.superGame_button_pressed = (sw == self.game.switches.superGame)
+        super(JDSwitchMonitor, self).sw_startButton_active(sw)
 
     def check_reset(self, min_ball):
         allow_restart = self.game.user_settings['Machine']['Allow restarts']
