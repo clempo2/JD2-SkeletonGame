@@ -117,7 +117,7 @@ Gameplay:
     default: 'medium'
   'Blocks for Ultimate Challenge':
     options: [8,12,16]
-    default: 16
+    default: 12
   'Mystery ballsave time':
     options: [5,30]
     increments: 1

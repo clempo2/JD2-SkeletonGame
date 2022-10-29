@@ -70,7 +70,7 @@ class JD2Game(SkeletonGame):
 
         # read settings
         num_blocks_setting = int(self.user_settings['Gameplay']['Blocks for Ultimate Challenge'])
-        self.blocks_required = min(16, 4 * ceil(num_blocks_setting / 4)) # a multiple of 4 less than or equal to 16
+        self.blocks_required = min(16, 4 * int(ceil(num_blocks_setting / 4))) # a multiple of 4 less than or equal to 16
         self.deadworld_mod_installed = self.user_settings['Machine']['Deadworld Mod Installed']
 
         self.base_play.reset()

@@ -6,7 +6,7 @@ Coil Strength: {flipperLwRMain: 45, flipperLwLMain: 45, flipperUpRMain: 30, flip
 Sound: {Initial volume: 5}
 Gameplay: {New ball ballsave time: 10, New ball repeating ballsave: false, Multiball ballsave time: 20,
   Block War ballsave time: 15, Time per chain feature: 30, Chain feature difficulty: medium,
-  Time for Hurry Up: 10, Block difficulty: medium, Blocks for Ultimate Challenge: 16,
+  Time for Hurry Up: 10, Block difficulty: medium, Blocks for Ultimate Challenge: 12,
   Mystery ballsave time: 10, Mystery feature add time: 10, Video mode: enemies, Video mode enemies: 15,
   Video mode completion: 100000, Time for Fear shot: 35, Fear ballsave time: 10, Mortis ballsave time: 10,
   Time for Death: 180, Death ballsave time: 20, Time for Death shot: 10, Celebration ballsave time: 20}

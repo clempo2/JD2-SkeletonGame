@@ -79,15 +79,12 @@ For each block, one or more of the crime scene inserts scattered around the
 playfield is lit. Higher blocks require more shots to complete. Shooting the
 3 target bank in the center of the playfield 3 times awards one shot.
 Each shot to an active crime scene target awards 1,000 points, and each time
-a block is a completed 10,000 points are awarded. An extra ball is lit after
+a block is completed 10,000 points are awarded. An extra ball is lit after
 completing 6 blocks. Completing all required blocks is needed before
 Ultimate Challenge can be lit.
 
 A difficulty settings determines how many and which crime scene targets are set
 for each block.
-
-The blocks are tracked in groups of 4. The 4 crime scene inserts
-in the front-center of the playfield indicate which group is active.
 
 The block number restarts at 1 after Ultimate Challenge.
 Each completed block contributes 2,000 points to the bonus.
@@ -100,6 +97,12 @@ When all 5 crime scene shots are completed, a rotating jackpot shot is lit.
 Collecting the jackpot awards 100,000 points and the mode starts again but
 this time each shot must be hit twice. The third round requires 3 hits per shot,
 and so on. The mode ends when a single ball remains.
+
+The 4 crime scene inserts between the slingshots indicate the number of blocks
+completed. Each light represents 4 blocks or equivalently 1 block war.
+Some inserts may be already lit if the number of required blocks is less than 16.
+Another way to look at it is the number of lights turned off is the number
+of block wars to start to complete that requirement for Ultimate Challenge.
 
 == Deadworld Multiball ==
 Locks are lit by completing all of the JUDGE drop targets. The first time

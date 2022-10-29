@@ -55,6 +55,7 @@ class RegularPlay(AdvancedMode):
             self.game.modes.remove([self.chain, self.city_blocks])
             self.game.setPlayerState('multiball_jackpot_collected', True)
             self.game.setPlayerState('current_block', self.game.blocks_required)
+            self.game.setPlayerState('num_blocks', self.game.blocks_required)
             self.game.setPlayerState('blocks_complete', True)
             self.game.setPlayerState('chain_complete', True)
             self.game.setPlayerState('modes_remaining', [])

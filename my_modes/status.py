@@ -26,7 +26,8 @@ class StatusReport(AdvancedMode):
             {'text': 'Dark Judges', 'value': player.getState('challenge_mode')},
             {'text': 'Inner Loop Combos', 'value': player.getState('best_inner_loops')},
             {'text': 'Outer Loop Combos', 'value': player.getState('best_outer_loops')},
-            {'text': 'Tilt Warnings', 'value': player.getState('warnings_remaining')}]
+            {'text': 'Tilt Warnings', 'value': player.getState('warnings_remaining')},
+            {'text': 'Bonus X', 'value': player.getState('bonus_x')}]
 
         self.num_items = len(self.status_items)
         self.index = 0
