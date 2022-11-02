@@ -186,6 +186,7 @@ class BasePlay(AdvancedMode):
             if self.game.switches.shooterR.is_active(0.35):
                 # go ahead and plunge the ball
                 self.game.coils.shooterR.pulse()
+                self.game.stall_search.mark_captive('shooterR', is_captive=False)
                 self.plunging = True
                 self.game.sound.stop_music()
                 self.play_background_music()
@@ -222,12 +223,16 @@ class BasePlay(AdvancedMode):
     def sw_shooterR_active(self, sw):
         if self.ball_starting:
             self.game.sound.play_music('ball_launch', loops=-1)
+
+    def sw_shooterR_active_200ms(self, sw):
+        self.game.stall_search.mark_captive('shooterR')
  
     def sw_shooterR_active_for_700ms(self, sw):
         if self.auto_plunge:
             # this would only happen if an air ball jumped into the shooter lane
             # because the trough auto-plunger is faster than this
             self.game.coils.shooterR.pulse()
+            self.game.stall_search.mark_captive('shooterR', is_captive=False)
  
     def sw_shooterR_active_for_10s(self, sw):
         self.suggest_press_fire()
@@ -238,6 +243,7 @@ class BasePlay(AdvancedMode):
             self.delay('suggest_press_fire', None, 10, self.suggest_press_fire)
 
     def sw_shooterL_active_for_500ms(self, sw):
+        self.game.stall_search.mark_captive('shooterL')
         self.game.send_event('event_shooterL_active_500ms')
 
     def event_shooterL_active_500ms(self):
@@ -417,6 +423,7 @@ class BasePlay(AdvancedMode):
 
     def sw_popperL_active_for_200ms(self, sw):
         self.flash_then_pop('flashersLowerLeft', 'popperL')
+        self.game.stall_search.mark_captive('popperL')
 
     def flash_then_pop(self, flasher, coil):
         self.game.coils[flasher].schedule(0x00555555, cycle_seconds=1, now=True)
@@ -424,11 +431,13 @@ class BasePlay(AdvancedMode):
 
     def delayed_pop(self, coil):
         self.game.coils[coil].pulse()
+        self.game.stall_search.mark_captive(coil, is_captive=False)
 
     def shooterL_variable_pulse(self):
         pulse_min = self.game.user_settings['Coil Strength']['shooterL Min']
         pulse_max = self.game.user_settings['Coil Strength']['shooterL Max']
         self.game.coils.shooterL.pulse(randint(pulse_min, pulse_max))
+        self.game.stall_search.mark_captive('shooterL', is_captive=False)
 
     #
     # Ball Save

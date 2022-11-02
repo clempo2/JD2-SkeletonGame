@@ -28,8 +28,8 @@ class Base(AdvancedMode):
         # remove all scoring modes and shut up boring mode
         self.game.modes.remove(self.game.base_play)
 
-        # eject balls in VUKs and shooter lanes while the balls are draining
-        self.game.modes.add(self.game.eject_mode)
+        # mark all ball mechs as non-captive to eject the balls right away 
+        self.game.stall_search.restart()
 
         self.game.setPlayerState('hold_bonus_x', False)
 
@@ -40,9 +40,6 @@ class Base(AdvancedMode):
         tilt_msg = 'SLAM TILT' if slam_tilt else 'TILT'
         text_layer = TextLayer(128/2, 7, self.game.fonts['large'], 'center', opaque=True)
         self.game.tilted_mode.layer = text_layer.set_text(tilt_msg)
-
-    def evt_tilt_ball_ending(self):
-        self.game.modes.remove(self.game.eject_mode)
 
     def evt_balls_missing(self):
         self.game.set_status('BALL MISSING')

@@ -1,10 +1,10 @@
 from random import shuffle
 from procgame.dmd import FrameLayer, GroupedLayer, MarkupFrameGenerator, PanningLayer, PushTransition, ScriptedLayer, TextLayer
+from procgame.game import AdvancedMode
 from procgame.highscore import generate_highscore_frames
 from procgame.sound import PLAY_NOTBUSY
-from eject import CoilEjectMode
 
-class Attract(CoilEjectMode):
+class Attract(AdvancedMode):
     """A mode that runs whenever the attract show is in progress."""
 
     def __init__(self, game, priority):
@@ -190,3 +190,4 @@ Collect a multiball jackpot
         # display the final scores
         self.display() # remove instructions if applicable and reset ScriptedLayer
         self.layer.script_index = self.score_layer_index
+

@@ -104,6 +104,7 @@ class RegularPlay(AdvancedMode):
     # If that shot starts BlockWar multiball, we want the CityBlock to go first and change the state to busy
     # so we don't start something else here
     def sw_popperR_active_for_310ms(self, sw):
+        self.game.stall_search.mark_captive('popperR')
         if self.state == 'chain_ready':
             self.state = 'busy'
             self.chain.start_chain_mode()

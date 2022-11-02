@@ -90,6 +90,7 @@ class UltimateChallenge(AdvancedMode):
         self.game.disable_drop_lamps()
 
     def sw_popperR_active_for_300ms(self, sw):
+        self.game.stall_search.mark_captive('popperR')
         self.game.base_play.flash_then_pop('flashersRtRamp', 'popperR')
 
 

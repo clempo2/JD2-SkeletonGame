@@ -14,7 +14,7 @@ from my_modes.ballsearch import JDBallSearch
 from my_modes.base import Base
 from my_modes.baseplay import BasePlay
 from my_modes.deadworld import Deadworld, DeadworldTest
-from my_modes.eject import CoilEjectMode
+from my_modes.stallsearch import StallSearch
 from my_modes.initials import JDEntrySequenceManager
 from my_modes.switchmonitor import JDSwitchMonitor
 
@@ -56,7 +56,7 @@ class JD2Game(SkeletonGame):
         self.attract_mode = Attract(self, 2)
         self.base_play = BasePlay(self, 3)
         self.deadworld = Deadworld(self, 20)
-        self.eject_mode = CoilEjectMode(self, 99997)
+        self.stall_search = StallSearch(self, 99997)
 
         # Service mode
         deadworld_test = DeadworldTest(self, 200, self.fonts['settings-font-small'])
