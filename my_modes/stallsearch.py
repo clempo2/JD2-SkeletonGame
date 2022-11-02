@@ -28,11 +28,9 @@ class StallSearch(AdvancedMode):
     def check_captive(self):
         # give time for the game to react if the player is playing
         seconds = 2 if self.game.base_play.is_started() else None
-        print "check_captive seconds=" + str(seconds) + "  " + str(time())
         delay = 0
         for sw in self.captive:
             if not self.captive[sw] and self.game.switches[sw].is_active(seconds):
-                print "delay pop_coil by " + str(delay) + " at  " + str(time())
                 self.delay(name='pop_coil', event_type=None, delay=delay, handler=self.pop_coil, param=sw)
                 delay += 0.125
         self.delay(name='check_captive', event_type=None, delay=max(delay, self.period), handler=self.check_captive)
@@ -45,12 +43,8 @@ class StallSearch(AdvancedMode):
             self.delay(name='check_captive', event_type=None, delay=self.period, handler=self.check_captive)
 
     def pop_coil(self, coil):
-        print "pop_coil start " + coil + "  " + str(time())
-        print "   self.game.switches[coil].is_active()=" + str(self.game.switches[coil].is_active())
-        print "   self.game.switches.coinDoor.is_active()=" + str(self.game.switches.coinDoor.is_active())
         # no point in pulsing the coil and hear the faint attempt if the coin door is still opened
         if self.game.switches[coil].is_active() and self.game.switches.coinDoor.is_active():
-            print "pop_coil pulse " + coil
             self.game.coils[coil].pulse()
 
     def sw_popperL_active_for_300ms(self, sw):
@@ -60,8 +54,6 @@ class StallSearch(AdvancedMode):
         self.check_now()
 
     def sw_shooterL_active_for_300ms(self, sw):
-        #TODO
-        print "sw_shooterL_active_for_300ms  " + str(time())
         self.check_now()
 
     def sw_shooterR_active_for_300ms(self, sw):

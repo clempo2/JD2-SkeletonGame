@@ -20,14 +20,13 @@ class Bonus(AdvancedMode):
             self.create_item('num_blocks', 'Block', 2000) +
             self.create_item('num_dark_judges', 'Dark Judge', 15000))
 
-        bonus = sum(item['points'] for item in self.bonus_items)
+        self.bonus_score = sum(item['points'] for item in self.bonus_items)
         bonus_x = self.game.getPlayerState('bonus_x')
-        if bonus > 0 and bonus_x > 1:
+        if self.bonus_score > 0 and bonus_x > 1:
             self.bonus_items += [{'text': str(bonus_x) + 'X', 'points': None}]
-            bonus *= bonus_x
-        self.game.score(bonus)
+            self.bonus_score *= bonus_x
 
-        self.bonus_items += [{'text': 'Total', 'points': bonus}]
+        self.bonus_items += [{'text': 'Total', 'points': self.bonus_score}]
         self.delay(name='show_bonus', event_type=None, delay=1.5, handler=self.show_bonus, param=0)
 
     def create_item(self, state, title, value):
@@ -44,6 +43,9 @@ class Bonus(AdvancedMode):
             self.exit_callback()
         else:
             self.game.sound.play('bonus')
+            if index == len(self.bonus_items) - 1:
+                # Wait till we show the total to add the points and possibly get a Replay
+                self.game.score(self.bonus_score)
             bonus_item = self.bonus_items[index]
             self.game.base_play.display(bonus_item['text'], bonus_item['points'])
             self.delay(name='show_bonus', event_type=None, delay=1.5, handler=self.show_bonus, param=index + 1)
