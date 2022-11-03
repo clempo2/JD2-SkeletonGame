@@ -36,7 +36,7 @@ The rule sheet is located in .\doc\JD2-pyprocgame-rules.txt
 
 ## Known Issues
 
-The DMD display malfunctions and the game can become unstable when the computer screen saver activates. To avoid this problem, the screen saver must be disabled when running JD2-SkeletonGame.
+When the screen saver activates, the DMD display goes blank and the game can become unstable. To avoid this problem, the screen saver must be disabled when running JD2-SkeletonGame.
 
 ## Authors
 

@@ -14,19 +14,20 @@ class Bonus(AdvancedMode):
         self.index = -1
 
         # compute everything before we start so we can easily skip to the end
-        # do not show bonus items worth zero
+        # do not show bonus items worth zero except the total
         self.bonus_items = (self.create_item('num_chain_features', 'Chain Feature', 4000) +
             self.create_item('num_hurry_ups', 'Hurry Up', 12000) +
             self.create_item('num_blocks', 'Block', 2000) +
             self.create_item('num_dark_judges', 'Dark Judge', 15000))
 
-        self.bonus_score = sum(item['points'] for item in self.bonus_items)
+        total = sum(item['points'] for item in self.bonus_items)
         bonus_x = self.game.getPlayerState('bonus_x')
-        if self.bonus_score > 0 and bonus_x > 1:
+        if total > 0 and bonus_x > 1:
             self.bonus_items += [{'text': str(bonus_x) + 'X', 'points': None}]
-            self.bonus_score *= bonus_x
+            total *= bonus_x
+        self.total_bonus = total
 
-        self.bonus_items += [{'text': 'Total', 'points': self.bonus_score}]
+        self.bonus_items += [{'text': 'Total', 'points': total}]
         self.delay(name='show_bonus', event_type=None, delay=1.5, handler=self.show_bonus, param=0)
 
     def create_item(self, state, title, value):
@@ -43,11 +44,11 @@ class Bonus(AdvancedMode):
             self.exit_callback()
         else:
             self.game.sound.play('bonus')
-            if index == len(self.bonus_items) - 1:
-                # Wait till we show the total to add the points and possibly get a Replay
-                self.game.score(self.bonus_score)
             bonus_item = self.bonus_items[index]
             self.game.base_play.display(bonus_item['text'], bonus_item['points'])
+            if index == len(self.bonus_items) - 1:
+                # Wait till we show the total to add the points and possibly get a Replay
+                self.game.score(self.total_bonus)
             self.delay(name='show_bonus', event_type=None, delay=1.5, handler=self.show_bonus, param=index + 1)
 
     def sw_flipperLwL_active(self, sw):
