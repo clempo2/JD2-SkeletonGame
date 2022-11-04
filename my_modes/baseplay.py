@@ -312,7 +312,7 @@ class BasePlay(AdvancedMode):
                 self.game.score(100000)
         else:
             # do not hide the bonus total if applicable
-            if not self.game.bonus_mode.is_started():
+            if not self.game.base_play.bonus.is_started():
                 self.display('Replay')
             # add a credit in your head
 

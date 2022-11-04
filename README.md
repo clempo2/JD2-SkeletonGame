@@ -42,7 +42,7 @@ Game Play: Gerry Stellenberg
 Software: Adam Preble, Michael Ocean, Josh Kugler, Clement Pellerin  
 Sound and Music: Rob Keller, Jonathan Coultan  
 Dots: Travis Highrise  
-Special Thanks to: Steven Duchac, Rob Anthony
+Special Thanks to: Steven Duchac, Rob Anthony, Jimmy Lipham
 
 ## License
 
