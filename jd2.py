@@ -2,6 +2,7 @@ from collections import OrderedDict
 import logging
 from math import ceil
 import os
+import platform
 import yaml
 from procgame.dmd import font_named, FrameLayer
 from procgame.game import SkeletonGame
@@ -290,6 +291,12 @@ if __name__ == '__main__':
         lambda loader, node: OrderedDict(loader.construct_pairs(node)))
     yaml.add_representer(OrderedDict,
         lambda dumper, data: dumper.represent_dict(data.iteritems())) 
+
+    if platform.system() == 'Windows':
+        # Turn off the screen saver on Windows.
+        # Without this the DMD also goes blank when the screen saver activates.
+        import ctypes
+        ctypes.windll.kernel32.SetThreadExecutionState(0x80000002)
 
     # change T2Game to be the class defined in this file!
     run_proc_game(JD2Game)
