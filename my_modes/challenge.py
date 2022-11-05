@@ -207,16 +207,16 @@ class Fear(DarkJudge):
 
     def update_lamps(self):
         schedule = 0x80808080 if self.state != 'finished' else 0
-        self.game.coils.flasherFear.schedule(schedule=schedule, cycle_seconds=0, now=True)
+        self.game.coils.flasherFear.schedule(schedule=schedule)
 
         style = 'on' if self.mystery_lit else 'off'
         self.game.drive_lamp('mystery', style)
 
         schedule = 0x00030003 if self.state == 'ramps' and self.active_ramp == 'left' else 0
-        self.game.coils.flasherPursuitL.schedule(schedule=schedule, cycle_seconds=0, now=True)
+        self.game.coils.flasherPursuitL.schedule(schedule=schedule)
 
         schedule = 0x00030003 if self.state == 'ramps' and self.active_ramp == 'right' else 0
-        self.game.coils.flasherPursuitR.schedule(schedule=schedule, cycle_seconds=0, now=True)
+        self.game.coils.flasherPursuitR.schedule(schedule=schedule)
 
         style = 'medium' if self.state == 'subway' and self.game.switches.dropTargetD.is_inactive() else 'off'
         self.game.drive_lamp('dropTargetD', style)
@@ -311,7 +311,7 @@ class Mortis(DarkJudge):
 
     def update_lamps(self):
         schedule = 0x80808080 if any(self.targets) else 0
-        self.game.coils.flasherMortis.schedule(schedule=schedule, cycle_seconds=0, now=True)
+        self.game.coils.flasherMortis.schedule(schedule=schedule)
 
         for shot in range(0, 5):
             lamp_name = self.lamp_names[shot]
@@ -368,7 +368,7 @@ class Death(DarkJudge, CrimeSceneShots):
 
     def update_lamps(self):
         schedule = 0x80808080 if any(self.active_shots) else 0
-        self.game.coils.flasherDeath.schedule(schedule=schedule, cycle_seconds=0, now=True)
+        self.game.coils.flasherDeath.schedule(schedule=schedule)
 
         for shot in range(0, 5):
             style = 'off' if self.active_shots[shot] == 0 else 'medium'
@@ -432,7 +432,7 @@ class Fire(DarkJudge, CrimeSceneShots):
         self.game.enable_gi(False)
 
         schedule = 0x80808080 if self.num_shots < self.num_shots_required else 0
-        self.game.coils.flasherFire.schedule(schedule=schedule, cycle_seconds=0, now=True)
+        self.game.coils.flasherFire.schedule(schedule=schedule)
 
         for shot in range(0, 5):
             lamp_name = 'perp' + str(shot + 1) + 'R'

@@ -28,7 +28,12 @@ class Base(AdvancedMode):
         # remove all scoring modes and shut up boring mode
         self.game.modes.remove(self.game.base_play)
 
-        # mark all ball mechs as non-captive to eject the balls right away 
+        self.game.deadworld.stop_spinning()
+
+        # disable all lamps including flashers
+        self.game.disable_all_lights();
+
+        # mark shooter lanes and VUKs as non-captive to eject the balls right away 
         self.game.stall_search.restart()
 
         self.game.setPlayerState('hold_bonus_x', False)

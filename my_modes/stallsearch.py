@@ -1,9 +1,7 @@
 from procgame.game import AdvancedMode
-#TODO
-from time import time
 
 class StallSearch(AdvancedMode):
-    '''Eject non-captive balls that get stuck in ball mechs.
+    '''Eject non-captive balls that get stuck in shooter lanes and VUKs.
        The game declares it is keeping balls captive intentionally by calling mark_captive(sw).
        The game declares it ejected a captive ball by calling mark_captive(sw, is_captive=False)
        We want to repeatedly try to eject a ball that got stuck because the coil did not fire,
@@ -17,7 +15,7 @@ class StallSearch(AdvancedMode):
         self.restart()
 
     def restart(self):
-        '''mark all switches as non-captive and check for stuck balls right away'''
+        '''mark all shooter lane and VUK switches as non-captive and check for stuck balls right away'''
         self.captive = {'shooterL':False, 'shooterR': False, 'popperL': False, 'popperR': False}
         self.check_now()
 
@@ -38,7 +36,7 @@ class StallSearch(AdvancedMode):
     def mark_captive(self, sw, is_captive=True):
         self.captive[sw] = is_captive
         if not is_captive:
-            # the game just pulsed the coil, give some time for the ball to eject before we check
+            # the game just pulsed the coil, give the ball some time to eject before we check
             self.cancel_delayed('check_captive')
             self.delay(name='check_captive', event_type=None, delay=self.period, handler=self.check_captive)
 

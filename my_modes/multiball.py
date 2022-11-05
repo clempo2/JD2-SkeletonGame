@@ -125,6 +125,7 @@ class Multiball(AdvancedMode):
         #   we need to remove it from the count to get the real number of locked balls in the planet.
 
         # make sure multiball did not start in the meantime, this can happen if BlockWar is running
+        # multiball is in state 'stopped' during tilt mode, deadworld can still call but it becomes a no-op.
         if self.state == 'load':
             dw_num_balls_locked = self.game.deadworld.num_balls_locked - sneaky_ball_adjust
             if (self.game.deadworld_mod_installed and self.num_locks_lit > 0 and
@@ -263,7 +264,7 @@ class Multiball(AdvancedMode):
                 self.game.drive_lamp('lock' + str(i), style)
 
         elif self.state == 'multiball':
-            self.game.coils.flasherGlobe.schedule(schedule=0x88888888, cycle_seconds=0, now=True)
+            self.game.coils.flasherGlobe.schedule(schedule=0x88888888)
 
             # the 3 lock lights are off or are chasing towards the ramp
             schedules = [0, 0, 0] if self.jackpot_lit else [0x000f000f, 0x003c003c, 0x00f000f0]

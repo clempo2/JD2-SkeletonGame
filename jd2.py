@@ -263,7 +263,7 @@ class JD2Game(SkeletonGame):
 
     def drive_lamp(self, lamp_name, style='on'):
         lamp_schedule = self.lamp_schedules[style]
-        self.lamps[lamp_name].schedule(schedule=lamp_schedule, cycle_seconds=0, now=True)
+        self.lamps[lamp_name].schedule(schedule=lamp_schedule)
 
     def drive_perp_lamp(self, perp_name, style='on'):
         for color in ['W', 'R', 'Y', 'G']:
@@ -296,7 +296,9 @@ if __name__ == '__main__':
         # Turn off the screen saver on Windows.
         # Without this the DMD also goes blank when the screen saver activates.
         import ctypes
-        ctypes.windll.kernel32.SetThreadExecutionState(0x80000002)
+        ES_CONTINUOUS=0x80000000 # set state remains in effect
+        ES_DISPLAY_REQUIRED=0x00000002 # forces the display to be on by resetting the display idle timer.
+        ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | ES_DISPLAY_REQUIRED)
 
     # change T2Game to be the class defined in this file!
     run_proc_game(JD2Game)

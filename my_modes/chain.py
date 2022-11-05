@@ -272,8 +272,8 @@ class Pursuit(ChainFeature):
         self.game.sound.play_voice('pursuit')
 
     def update_lamps(self):
-        self.game.coils.flasherPursuitL.schedule(schedule=0x00030003, cycle_seconds=0, now=True)
-        self.game.coils.flasherPursuitR.schedule(schedule=0x03000300, cycle_seconds=0, now=True)
+        self.game.coils.flasherPursuitL.schedule(schedule=0x00030003)
+        self.game.coils.flasherPursuitR.schedule(schedule=0x03000300)
 
     # Award shot if ball diverted for multiball.
     # Ensure it was a fast shot rather than one that just trickles in.
@@ -320,9 +320,9 @@ class Blackout(ChainFeature):
     def update_lamps(self):
         self.game.enable_gi(False) # disable all gi except gi05 (Underworld)
         self.game.lamps.gi05.enable()
-        self.game.lamps.blackoutJackpot.schedule(schedule=0x000F000F, cycle_seconds=0, now=True)
+        self.game.lamps.blackoutJackpot.schedule(schedule=0x000F000F)
         if self.num_shots == self.num_shots_required - 1:
-            self.game.coils.flasherBlackout.schedule(schedule=0x000F000F, cycle_seconds=0, now=True)
+            self.game.coils.flasherBlackout.schedule(schedule=0x000F000F)
 
     def sw_centerRampExit_active(self, sw):
         self.num_shots += 1
@@ -352,7 +352,7 @@ class Sniper(ChainFeature):
         self.delay(name='gunshot', event_type=None, delay=time, handler=self.gunshot)
 
     def update_lamps(self):
-        self.game.lamps.awardSniper.schedule(schedule=0x00FF00FF, cycle_seconds=0, now=True)
+        self.game.lamps.awardSniper.schedule(schedule=0x00FF00FF)
 
     def gunshot(self):
         self.game.sound.play_voice('sniper - shot')
@@ -483,7 +483,7 @@ class Impersonator(ChainFeature):
         self.delay(name='shutup_restart', event_type=None, delay=time, handler=self.shutup_restart)
 
     def update_lamps(self):
-        self.game.lamps.awardBadImpersonator.schedule(schedule=0x00FF00FF, cycle_seconds=0, now=True)
+        self.game.lamps.awardBadImpersonator.schedule(schedule=0x00FF00FF)
         self.game.disable_drop_lamps()
         # Timer is continuously updating self.timer
         time = self.timer % 6
@@ -550,7 +550,7 @@ class Meltdown(ChainFeature):
         self.game.sound.play_voice('meltdown intro')
 
     def update_lamps(self):
-        self.game.lamps.stopMeltdown.schedule(schedule=0x00FF00FF, cycle_seconds=0, now=True)
+        self.game.lamps.stopMeltdown.schedule(schedule=0x00FF00FF)
 
     def sw_captiveBall1_active(self, sw):
         self.switch_hit()
@@ -600,7 +600,7 @@ class Safecracker(ChainFeature):
         self.stop_using_drops()
 
     def update_lamps(self):
-        self.game.lamps.awardSafecracker.schedule(schedule=0x00FF00FF, cycle_seconds=0, now=True)
+        self.game.lamps.awardSafecracker.schedule(schedule=0x00FF00FF)
 
     def sw_subwayEnter2_active(self, sw):
         self.num_shots += 1
@@ -642,7 +642,7 @@ class Manhunt(ChainFeature):
         self.game.sound.play_voice('manhunt - intro')
 
     def update_lamps(self):
-        self.game.coils.flasherPursuitL.schedule(schedule=0x000F000F, cycle_seconds=0, now=True)
+        self.game.coils.flasherPursuitL.schedule(schedule=0x000F000F)
 
     # Award shot if ball diverted for multiball.  Ensure it was a fast
     # shot rather than one that just trickles in.
@@ -680,7 +680,7 @@ class Stakeout(ChainFeature):
         self.delay(name='boring', event_type=None, delay=15, handler=self.boring_expired)
 
     def update_lamps(self):
-        self.game.coils.flasherPursuitR.schedule(schedule=0x000F000F, cycle_seconds=0, now=True)
+        self.game.coils.flasherPursuitR.schedule(schedule=0x000F000F)
 
     def boring_expired(self):
         # keep quiet if stacked with multiball

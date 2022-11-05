@@ -112,8 +112,8 @@ Collect a multiball jackpot
         super(Attract, self).mode_started()
 
         # Blink the start buttons in alternation to notify player about starting a game.
-        self.game.lamps.startButton.schedule(schedule=0x00ff00ff, cycle_seconds=0, now=False)
-        self.game.lamps.superGame.schedule(schedule=0xff00ff00, cycle_seconds=0, now=False)
+        self.game.lamps.startButton.schedule(schedule=0x00ff00ff, now=False)
+        self.game.lamps.superGame.schedule(schedule=0xff00ff00, now=False)
 
         # Turn on minimal GI lamps
         self.game.enable_gi(False)
