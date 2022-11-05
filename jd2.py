@@ -117,6 +117,11 @@ class JD2Game(SkeletonGame):
     def no_op_callback(self):
         pass
 
+    def service_mode_ended(self):
+        # tell the crane to restow to rest position in case the crane motor was powered during service mode
+        self.deadworld.power_up = True
+        super(JD2Game, self).service_mode_ended()
+
     #
     # Layers
     #
@@ -284,6 +289,7 @@ class JD2Game(SkeletonGame):
         # Disable all flashers
         for flasher in self.flashers:
             flasher.disable()
+
 
 if __name__ == '__main__':
     # preserve order when reading YAML files
