@@ -66,6 +66,8 @@ class JD2Game(SkeletonGame):
         self.reset()
 
     def reset(self):
+        self.trough.num_balls_locked = self.deadworld.num_balls_locked;
+
         # Reset the entire game framework
         super(JD2Game, self).reset()
 
@@ -80,6 +82,14 @@ class JD2Game(SkeletonGame):
     def safe_reset(self):
         """Schedule a reset on the next tick"""
         self.reset_pending = True
+
+    def is_missing_balls(self):
+        # It's ok to start the game with balls missing in the trough if they are locked in the planet with the deadworld mod installed
+        # Beware, self.deadworld_mod_installed is not yet initialized when this method is called.
+        if self.user_settings['Machine']['Deadworld Mod Installed']:
+            return self.deadworld.num_balls_locked + self.trough.num_balls() < self.num_balls_total
+        else:
+            return super(JD2Game, self).is_missing_balls()
 
     def tick(self):
         super(JD2Game, self).tick()
