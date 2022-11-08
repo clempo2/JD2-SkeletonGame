@@ -316,5 +316,4 @@ if __name__ == '__main__':
         ES_DISPLAY_REQUIRED=0x00000002 # forces the display to be on by resetting the display idle timer.
         ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | ES_DISPLAY_REQUIRED)
 
-    # change T2Game to be the class defined in this file!
     run_proc_game(JD2Game)
