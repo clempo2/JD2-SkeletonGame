@@ -11,22 +11,29 @@ The port is complete. The game works as intended. Please submit a [GitHub issue]
 ## Installation
 
 - See the P-ROC Connection Diagram document in the doc directory for visual instructions how to install the P-ROC board in the Judge Dredd machine.  
-- Run the all-in-one [SkeletonGame installer](http://skeletongame.com/step-1-installation-and-testing-the-install-windows/). This installs all the dependencies. JD2-SkeletonGame is not compatible with the official SkeletonGame release, so C:\P-ROC\PyProcGameHD-SkeletonGame-dev will not be used.  
+- Run the all-in-one [SkeletonGame installer](http://skeletongame.com/getting-started/step-1-installation-and-testing-the-install-windows/). This installs all the dependencies. JD2-SkeletonGame is not compatible with the official SkeletonGame release, so C:\P-ROC\PyProcGameHD-SkeletonGame-dev will not be used.  
 - Copy the [SkeletonGameDMD dmd branch](https://github.com/clempo2/SkeletonGameDMD/tree/dmd) to C:\P-ROC\SkeletonGameDMD  
   For example: cd c:\P-ROC & git clone -b dmd https://github.com/clempo2/SkeletonGameDMD.git  
 - Copy [JD2-SkeletonGame](https://github.com/clempo2/JD2-SkeletonGame) to C:\P-ROC\JD2-SkeletonGame  
   For example: cd c:\P-ROC & git clone https://github.com/clempo2/JD2-SkeletonGame.git
 - Install the [JD2-pyprocgame media kit](https://github.com/clempo2/JD2-pyprocgame-media). Follow the instructions in the media kit repository to extract the assets over JD2-SkeletonGame. For example, after the installation you should have the directory C:\P-ROC\JD2-SkeletonGame\assets\sound  
-- Edit config.yaml to comment out this line when using a real P-ROC
+- By default, the game simulates the P-ROC on the computer.  
+  Edit config.yaml to comment out this line when using a real P-ROC
     ```
     #pinproc_class: procgame.fakepinproc.FakePinPROC # comment out this line when using a real P-ROC.
     ```
+
+## Running the Game
+
 - Run these commands:
     ```
     cd C:\P-ROC\JD2-SkeletonGame  
     jd2.bat  
     ```
-- If you have the Deadworld mod installed and would like to physically lock 2 balls, use the service buttons to go in the settings,  and change "Deadworld mod installed" to true. You only need to do this once.
+- When simulating the P-ROC, you can press some keys on the keyboard to activate switches.  
+  See the default mapping between the keyboard and switches in config\config.yaml  
+  For example, press the s key to activate the start button, this will start the game.
+- If you have the Deadworld mod installed and would like to physically lock 2 balls, use the service buttons to go in the settings, and change "Deadworld mod installed" to true. You only need to do this once.
 
 JD2-SkeletonGame should also run on Linux but this has not been tested.
 
