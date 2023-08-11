@@ -326,6 +326,8 @@ PRCoils:
         number: C10
     diverter:
         number: C11
+    shaker:
+        number: C12
     trough:
         number: C13
     slingL: 
