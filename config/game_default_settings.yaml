@@ -19,6 +19,10 @@ Machine:
   'Deadworld Mod Installed':
     options: [true, false]
     default: false
+  'Shaker Mod Installed':
+    options: [true, false]
+    default: false
+
 Coil Strength:
   flipperLwRMain:
     options: [1,60]

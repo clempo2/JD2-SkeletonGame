@@ -8,7 +8,7 @@ The goal is to achieve high software quality while minimizing the amount of code
 
 The port is complete. The game works as intended. Please submit a [GitHub issue](https://github.com/clempo2/JD2-SkeletonGame/issues) if you find a problem.
 
-Software support is not implemented yet for the optional shaker mod.
+Software support for the optional shaker mod is working but it is still a work in progress.
 
 ## Installation
 

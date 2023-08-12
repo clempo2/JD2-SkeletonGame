@@ -75,6 +75,7 @@ class JD2Game(SkeletonGame):
         num_blocks_setting = int(self.user_settings['Gameplay']['Blocks for Ultimate Challenge'])
         self.blocks_required = min(16, 4 * int(ceil(num_blocks_setting / 4))) # a multiple of 4 less than or equal to 16
         self.deadworld_mod_installed = self.user_settings['Machine']['Deadworld Mod Installed']
+        self.shaker_mod_installed = self.user_settings['Machine']['Shaker Mod Installed']
 
         self.base_play.reset()
         self.start_attract_mode()
@@ -208,6 +209,14 @@ class JD2Game(SkeletonGame):
         if balls_to_launch:
             # warning: must pass a real callback since passing None preserves the previous callback
             self.trough.launch_balls(balls_to_launch, self.no_op_callback, stealth, autoplunge)
+
+    def shake(self, schedule, cycle_seconds=1):
+        if self.shaker_mod_installed:
+            self.coils.shaker.schedule(schedule, cycle_seconds, now=True)
+
+    def disable_shaker(self):
+        if self.shaker_mod_installed:
+            self.coils.shaker.disable()
 
     def slam_tilt_complete(self):
         # work-around to avoid calling end_ball() and end_game() when the game is tilted

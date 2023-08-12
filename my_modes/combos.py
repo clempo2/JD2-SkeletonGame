@@ -26,6 +26,7 @@ class Combos(AdvancedMode):
     def sw_leftRollover_active(self, sw):
         # See if ball came around right loop
         if self.game.switches.topRightOpto.time_since_change() < 1:
+            self.game.shake(schedule=0x111)
             self.outer_loop_active = True
             self.outer_loop_combos += 1
             if self.outer_loop_combos > self.game.getPlayerState('best_outer_loops'):
