@@ -469,7 +469,7 @@ class BasePlay(AdvancedMode):
         self.game.modes.remove([self.boring, self.combos, self.regular_play, self.ultimate_challenge])
         self.game.modes.add(self.bonus)
         self.game.update_lamps()
-        self.game.shaker_disable();
+        self.game.disable_shaker();
         self.game.deadworld.stop_spinning()
         # delay the event indefinitely while the bonus mode is playing
         return (-1, True)
