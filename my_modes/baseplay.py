@@ -74,9 +74,12 @@ class BasePlay(AdvancedMode):
         else:
             self.game.modes.add(self.regular_play)
 
+        self.reset_shake()
+
     def mode_stopped(self):
         self.game.modes.remove([self.replay, self.boring, self.regular_play, self.ultimate_challenge])
         self.game.setPlayerState('total_extra_balls', self.total_extra_balls)
+        self.stop_shake()
 
     def update_lamps(self):
         # Disable all lamps except GI
@@ -434,12 +437,23 @@ class BasePlay(AdvancedMode):
     def delayed_pop(self, coil):
         self.game.coils[coil].pulse()
         self.game.stall_search.mark_captive(coil, is_captive=False)
+        self.shake(schedule=0xf)
 
     def shooterL_variable_pulse(self):
         pulse_min = self.game.user_settings['Coil Strength']['shooterL Min']
         pulse_max = self.game.user_settings['Coil Strength']['shooterL Max']
-        self.game.coils.shooterL.pulse(randint(pulse_min, pulse_max))
+        pulse_rand = randint(pulse_min, pulse_max)
+        self.game.coils.shooterL.pulse(pulse_rand)
         self.game.stall_search.mark_captive('shooterL', is_captive=False)
+
+        pulse_range = pulse_max - pulse_min;
+        if pulse_rand <= pulse_min + 0.333 * pulse_range:
+            schedule = 0x3
+        elif pulse_rand <= pulse_min + 0.666 * pulse_range:
+            schedule = 0x7
+        else:
+            schedule = 0xf 
+        self.shake(schedule)
 
     #
     # Ball Save
@@ -469,7 +483,7 @@ class BasePlay(AdvancedMode):
         self.game.modes.remove([self.boring, self.combos, self.regular_play, self.ultimate_challenge])
         self.game.modes.add(self.bonus)
         self.game.update_lamps()
-        self.game.disable_shaker();
+        self.stop_shake();
         self.game.deadworld.stop_spinning()
         # delay the event indefinitely while the bonus mode is playing
         return (-1, True)
@@ -478,6 +492,47 @@ class BasePlay(AdvancedMode):
         self.game.modes.remove([self.bonus, self.replay])
         # resume execution of evt_ball_ending, this will call self.game.end_ball()
         self.force_event_next()
+
+    #
+    # Shaker
+    #
+
+    def reset_shake(self):
+        self.shaking = False
+        self.perma_shake_schedule = 0
+        self.cancel_delayed('shake_ended')
+
+    def shake(self, schedule):
+        if self.game.shaker_mod_installed:
+            self.game.coils.shaker.schedule(schedule, cycle_seconds=1, now=True)
+            shake_delay = (self.bitLen(schedule) + 3.0) / 32.0
+            self.cancel_delayed('shake_ended')
+            self.shaking = True
+            self.delay('shake_ended', event_type=None, delay=shake_delay, handler=self.shake_ended)
+
+    def perma_shake(self, schedule):
+        if self.game.shaker_mod_installed:
+            self.perma_shake_schedule = schedule
+            if not self.shaking:
+                self.game.coils.shaker.schedule(self.perma_shake_schedule, cycle_seconds=0, now=True)
+
+    def stop_shake(self):
+        if self.game.shaker_mod_installed:
+            self.reset_shake()
+            self.game.coils.shaker.disable()
+
+    def shake_ended(self):
+        self.shaking = False
+        if self.perma_shake_schedule:
+            self.perma_shake(self.perma_shake_schedule)
+
+    def bitLen(self, int_type):
+        length = 0
+        while (int_type):
+            int_type >>= 1
+            length += 1
+        return(length)
+
 
 class ModesDisplay(AdvancedMode):
     """Display some text when the ball is active"""

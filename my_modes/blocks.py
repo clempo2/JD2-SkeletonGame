@@ -243,6 +243,7 @@ class BlockWar(TimedMode, CrimeSceneShots):
     def mode_started(self):
         super(BlockWar, self).mode_started()
         self.game.adjPlayerState('multiball_active', 0x2)
+        self.game.base_play.perma_shake(0x00001030)
         self.game.sound.play_voice('block war')
         self.num_shots_required_per_target = 1
         self.next_round(inc_num_shots=False)
@@ -250,6 +251,7 @@ class BlockWar(TimedMode, CrimeSceneShots):
     def mode_stopped(self):
         super(BlockWar, self).mode_stopped()
         self.game.adjPlayerState('multiball_active', -0x2)
+        self.game.base_play.stop_shake()
 
     def next_round(self, inc_num_shots):
         self.state = 'shots'

@@ -187,7 +187,7 @@ class ShootingGallery(TimedMode):
         self.success = False
 
     def shoot_enemy(self, position):
-        self.game.shake(schedule=0x5)
+        self.game.base_play.shake(schedule=0x5)
         self.num_enemies_shot += 1
         self.game.sound.play(self.bad_guy_shot)
         self.targets[position] = 'shot'

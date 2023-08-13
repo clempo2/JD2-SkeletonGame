@@ -210,14 +210,6 @@ class JD2Game(SkeletonGame):
             # warning: must pass a real callback since passing None preserves the previous callback
             self.trough.launch_balls(balls_to_launch, self.no_op_callback, stealth, autoplunge)
 
-    def shake(self, schedule, cycle_seconds=1):
-        if self.shaker_mod_installed:
-            self.coils.shaker.schedule(schedule, cycle_seconds, now=True)
-
-    def disable_shaker(self):
-        if self.shaker_mod_installed:
-            self.coils.shaker.disable()
-
     def slam_tilt_complete(self):
         # work-around to avoid calling end_ball() and end_game() when the game is tilted
         self.b_slam_tilted = False

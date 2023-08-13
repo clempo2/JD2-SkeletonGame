@@ -85,6 +85,7 @@ class Multiball(AdvancedMode):
         self.game.ball_save_start(time=ball_save_time, now=True, allow_multiple_saves=True)
         self.start_callback()
         self.game.adjPlayerState('multiball_active', 0x1)
+        self.game.base_play.perma_shake(0x00100030)
         self.game.update_lamps()
 
     def end_multiball(self):
@@ -94,6 +95,7 @@ class Multiball(AdvancedMode):
         self.jackpot_lit = False
         self.game.setPlayerState('multiball_played', True)
         self.game.adjPlayerState('multiball_active', -0x1)
+        self.game.base_play.stop_shake()
         self.end_callback()
         self.drops.reset_drop_target_bank()
         self.game.update_lamps()
@@ -251,6 +253,7 @@ class Multiball(AdvancedMode):
         self.game.score(100000)
         self.num_ramp_shots = 0
         self.ramp_shots_required += 1
+        self.game.base_play.shake(schedule=0x3f)
 
     def update_lamps(self):
         if self.state == 'load':
